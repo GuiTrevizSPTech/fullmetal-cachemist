@@ -1,0 +1,14 @@
+spring.application.name=fullmetal
+
+#spring.profiles.active=mysql
+spring.datasource.url=jdbc:mysql://localhost:3306/cachemist
+spring.datasource.username=aluno
+spring.datasource.password=alunoSPTech
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.open-in-view=false
+
+
+app.cache.max-itens=5
+app.cache.ttl-segundos=60
+
+app.biblioteca.atraso-ms=2000
