@@ -4,6 +4,7 @@ public record EstatisticasCache(
         int tamanho,
         int limite,
         long ttlSegundos,
+        String politica,
         long hits,
         long misses,
         long evictions,

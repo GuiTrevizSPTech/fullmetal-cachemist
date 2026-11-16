@@ -10,5 +10,7 @@ spring.jpa.open-in-view=false
 
 app.cache.max-itens=5
 app.cache.ttl-segundos=60
+app.cache.politica=LRU
+app.cache.limpeza-segundos=30
 
 app.biblioteca.atraso-ms=2000
