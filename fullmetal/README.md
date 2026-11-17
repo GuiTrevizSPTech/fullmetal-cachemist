@@ -119,11 +119,20 @@ Os comandos usam `curl -i` para mostrar o header `X-Cache`. No Postman, o header
    ```bash
    curl http://localhost:8080/conteudos
    ```
+   <img width="1658" height="443" alt="image" src="https://github.com/user-attachments/assets/6f59d13b-cf32-4651-a881-6a1c54e74130" />
+   <img width="1662" height="341" alt="image" src="https://github.com/user-attachments/assets/ebb4a4ed-7eae-4ce2-a4f7-dca0f4e4eb3c" />
+
+
 2. MISS e depois HIT:
    ```bash
    curl -i http://localhost:8080/conteudos/1   # MISS, cerca de 2 s
+   ```
+   <img width="1669" height="362" alt="image" src="https://github.com/user-attachments/assets/7b9f5286-f378-49af-8af0-3044c70c52d1" />
+   ```bash
    curl -i http://localhost:8080/conteudos/1   # HIT
    ```
+   <img width="1662" height="359" alt="image" src="https://github.com/user-attachments/assets/50e51eaf-cd75-4705-a909-4332edd3f8ea" />
+
 3. Limite e LRU:
    ```bash
    curl -X DELETE http://localhost:8080/cache
@@ -132,23 +141,38 @@ Os comandos usam `curl -i` para mostrar o header `X-Cache`. No Postman, o header
    curl -i http://localhost:8080/conteudos/6   # MISS, o id 2 sai do cache
    curl -i http://localhost:8080/conteudos/2   # MISS
    ```
-4. Invalidação depois do PUT:
+   Limpando cache 
+   <img width="1658" height="290" alt="image" src="https://github.com/user-attachments/assets/ed01c286-e8e2-4b9a-a811-452cb23ca110" />
+
+   Recarregando cache (conteúdos 1 a 5)
+   <img width="267" height="32" alt="image" src="https://github.com/user-attachments/assets/152e4184-33ab-401d-b039-b6b299ddaa6b" />
+
+   Log
+   <img width="1745" height="197" alt="image" src="https://github.com/user-attachments/assets/9cc4f382-83f1-4826-9387-580c757fc978" />
+
+5. Invalidação depois do PUT:
    ```bash
    curl -i http://localhost:8080/conteudos/4   # HIT
    curl -X PUT http://localhost:8080/conteudos/4 -H "Content-Type: application/json" \
         -d '{"titulo":"Transmutacao de armadura (revisada)","corpo":"Revisao do Estado","autor":"Edward Elric"}'
    curl -i http://localhost:8080/conteudos/4   # MISS, já com o título novo
    ```
-5. TTL:
+   <img width="1087" height="74" alt="image" src="https://github.com/user-attachments/assets/c90f2337-4329-485c-aba1-c5bc36a3efc9" />
+
+6. TTL:
    ```bash
    curl -i http://localhost:8080/conteudos/7   # MISS
    # esperar mais de 60 s
    curl -i http://localhost:8080/conteudos/7   # MISS de novo
    ```
-6. Estatísticas:
+   <img width="1489" height="57" alt="image" src="https://github.com/user-attachments/assets/0f23d44b-62b3-4c6c-a2e4-594c2140bba3" />
+
+7. Estatísticas:
    ```bash
    curl http://localhost:8080/cache/estatisticas
    ```
+   <img width="1015" height="335" alt="image" src="https://github.com/user-attachments/assets/606261ea-3bfd-4158-88fe-6cafbe63cf05" />
+
 
 Para ver o FIFO, troque `app.cache.politica` para `FIFO`, reinicie e repita o passo 3: o id 1 sai do cache mesmo depois do HIT.
 
